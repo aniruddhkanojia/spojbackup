@@ -74,14 +74,14 @@ def getSolutions (path_prefix, path_proxy):
 
     # authenticate the user
     print "Authenticating " + username
-    br.open ("http://spoj.pl")
+    br.open ("http://spoj.com")
     br.select_form (name="login")
     br["login_user"] = username
     br["password"] = password
 
     # sign in for a day to avoid timeouts
     br.find_control(name="autologin").items[0].selected = True
-    br.form.action = "http://www.spoj.pl"
+    br.form.action = "http://www.spoj.com"
     response = br.submit()
 
     verify = response.read()
@@ -91,7 +91,7 @@ def getSolutions (path_prefix, path_proxy):
 
     # grab the signed submissions list
     print "Grabbing siglist for " + username
-    siglist = br.open("http://www.spoj.pl/status/" + username + "/signedlist")
+    siglist = br.open("http://www.spoj.com/status/" + username + "/signedlist")
 
     # dump first nine useless lines in signed list for formatting
     for i in xrange(9):
@@ -135,7 +135,7 @@ def downloadSolutions(mysublist):
         if len(existing_files) == 1:
             print "%d/%d - %s skipped." % (progress, totalsubmissions, entry[3])
         else:
-            source_code = br.open("http://www.spoj.pl/files/src/save/" + \
+            source_code = br.open("http://www.spoj.com/files/src/save/" + \
                                                                        entry[1])
             header = dict(source_code.info())
             filename = ""
